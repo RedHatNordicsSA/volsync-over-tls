@@ -7,7 +7,7 @@ To do this, volume replication is done via rsync over TLS towards a passthrough 
 ## Prerequisite 
 - Two OpenShift clusters.
 - The source cluster can reach the Router IP of the destination cluster on port 443.
-- Deploy VolSync Operator on both clusters.
+- Install VolSync on both clusters via the OperatorHub. If you have ACM, there is also a ManagedClusterAddOn available.
 
 ## (Optional) Test data.
 Create a PostegreSQL Deployment with a PVC. Make use of the `random()` function to insert thousands to millions of rows in a DB.
@@ -54,7 +54,7 @@ spec:
 ```
 
 ### The Pre Shared Key
-The ReplicatioDestination once created will have a Secret containing a PSK, you will need that value. To find the Secret name, look at the ReplicationDestination `.status.rsyncTLS.keySecret`.
+The ReplicatioDestination once created will have a Secret containing a PSK, you will need that value. To find the Secret name, look at the ReplicationDestination `.status.rsyncTLS.keySecret`. Secret name should start with `volsync-rsync-dst-src-`.
 
 ## Setup of the source cluster
 ## The PSK Secret
@@ -68,7 +68,7 @@ metadata:
   name: my-database
   namespace: y-database
 spec:
-  sourcePVC: my-database-pv-claim
+  sourcePVC: my-database-pvc
   trigger:
     schedule: "*/10 * * * *"
   rsyncTLS:
@@ -77,3 +77,4 @@ spec:
     port: 443
     copyMethod: Clone    
 ```
+While the replication is running, monitor the network load on the Routers of your destination cluster.
