@@ -10,7 +10,7 @@ To do this, volume replication is done via rsync over TLS towards a passthrough 
 - Install VolSync on both clusters via the OperatorHub. If you have ACM, there is also a ManagedClusterAddOn available.
 
 ## (Optional) Test data.
-Create a PostegreSQL Deployment with a PVC. Make use of the `random()` function to insert thousands to millions of rows in a DB.
+Create a PostegreSQL Deployment with a PVC. Make use of the `generate_series()` and `random()` function to insert dummy data in thousands or millions of rows in a DB.
 
 ## Setup the destination cluster.
 ### The ReplicationDestination CR
