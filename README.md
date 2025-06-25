@@ -86,4 +86,4 @@ spec:
     port: 443
     copyMethod: Clone    
 ```
-While the replication is running, monitor the network load on the Routers of your destination cluster. One way to do that is by going in the OpenShift Console under Observe and choosing the `Kubernnetes / Networking / Namespace (Pods)` then selecting the `openshift-ingress` Namespace.
+While the replication is running, monitor the network load on the Routers of your destination cluster. One way to do that is by going in the OpenShift Console under Observe and choosing the `Kubernetes / Networking / Namespace (Pods)` then selecting the `openshift-ingress` Namespace.
