@@ -19,7 +19,7 @@ oc create project my-database
 
 - On the source cluster:
 
-In that Namespace, deploy a PostgreSQL 16 instance with PVC on the source cluster using the OpenShift template (https://github.com/sclorg/postgresql-container/)
+In that Namespace, deploy a PostgreSQL 15 (`15-el9` tag from postegrsql ImageStream) with a 10Gi PVC on the source cluster using the OpenShift template (https://github.com/sclorg/postgresql-container/)
 
 ## Setup the destination cluster.
 ### The ReplicationDestination CR
