@@ -1,7 +1,7 @@
 # VolSync over TLS
 Test and example of VolSync based replication of PVC using rsync over TLS.
 
-The purpose of this setup is to enable PersistentVolume replication between two OpenShift clusters with no extra infrastructure depeendency such as MetalLB, Elastic LB or sub mariner.
+The purpose of this setup is to enable PersistentVolume replication between two OpenShift clusters with no extra infrastructure dependency such as MetalLB, Elastic LB or sub mariner.
 To do this, volume replication is done via rsync over TLS towards a passthrough Route on the destination cluster.
 
 ## Prerequisite 
@@ -57,8 +57,6 @@ kind: Route
 metadata:
   name: database-volsync
   namespace: my-database
-  annotations:
-    haproxy.router.openshift.io/ip_whitelist: <Egress IP or cluster IP range of the source cluster>
 spec:
   host: database-volsync.<Ingress_Domain> 
   port:
@@ -68,6 +66,12 @@ spec:
     name: <VolSync Service Name>
   tls:
     termination: passthrough
+```
+The TLS PSK ensures authentication and if you want an added layer of security, you can add an ACL to the Route:
+```yaml
+metadata:
+  annotations:
+    haproxy.router.openshift.io/ip_whitelist: <Egress IP or cluster IP range of the source cluster>
 ```
 
 ### The Pre Shared Key
