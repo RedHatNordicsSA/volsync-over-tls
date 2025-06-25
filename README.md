@@ -1,4 +1,4 @@
-# volsync-over-tls
+# VolSync over TLS
 Test and example of VolSync based replication of PVC using rsync over TLS.
 
 The purpose of this setup is to enable PersistentVolume replication between two OpenShift clusters with no extra infrastructure depeendency such as MetalLB, Elastic LB or sub mariner.
@@ -11,6 +11,9 @@ To do this, volume replication is done via rsync over TLS towards a passthrough 
 
 ## (Optional) Test data.
 Create a PostegreSQL Deployment with a PVC. Make use of the `generate_series()` and `random()` function to insert dummy data in thousands or millions of rows in a DB.
+```yaml
+oc create project my-database
+```
 
 ## Setup the destination cluster.
 ### The ReplicationDestination CR
@@ -45,7 +48,7 @@ metadata:
 spec:
   host: database-volsync.<Ingress_Domain> 
   port:
-    targetPort: <VolSync Service Port>
+    targetPort: 8000
   to:
     kind: Service
     name: <VolSync Service Name>
