@@ -14,6 +14,7 @@ Create a PostegreSQL Deployment with a PVC. Make use of the `generate_series()` 
 ```yaml
 oc create project my-database
 ```
+In that Namespace, deploy a PostgreSQL 16 instance with PVC on the source cluster using the OpenShift template (https://github.com/sclorg/postgresql-container/)
 
 ## Setup the destination cluster.
 ### The ReplicationDestination CR
