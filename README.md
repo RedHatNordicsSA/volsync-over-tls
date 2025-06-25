@@ -16,7 +16,9 @@ Create a PostegreSQL Deployment with a PVC. Make use of the `generate_series()` 
 ```yaml
 oc create project my-database
 ```
-- On the source cluster: 
+
+- On the source cluster:
+
 In that Namespace, deploy a PostgreSQL 16 instance with PVC on the source cluster using the OpenShift template (https://github.com/sclorg/postgresql-container/)
 
 ## Setup the destination cluster.
@@ -84,4 +86,4 @@ spec:
     port: 443
     copyMethod: Clone    
 ```
-While the replication is running, monitor the network load on the Routers of your destination cluster.
+While the replication is running, monitor the network load on the Routers of your destination cluster. One way to do that is by going in the OpenShift Console under Observe and choosing the `Kubernnetes / Networking / Namespace (Pods)` then selecting the `openshift-ingress` Namespace.
