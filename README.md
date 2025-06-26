@@ -12,10 +12,7 @@ To do this, volume replication is done via rsync over TLS towards a passthrough 
 - Install VolSync on both clusters via the OperatorHub. If you have a hub cluster with ACM, there is also a ManagedClusterAddOn available.
 
 ## (Optional) Test data.
-If you need a Deployment and PersistentVolumeClaim to validate this setup before moving on to actual workload.
-
-Create a PostegreSQL Deployment with a PVC. Make use of the `generate_series()` and `random()` function to insert dummy data in thousands or millions of rows in a DB.
-
+If you need some test data to validate this setup before moving on to actual workload, create a PostegreSQL instance with a PVC. 
 - On both clusters:
 ```yaml
 oc create project my-database
@@ -25,7 +22,7 @@ oc create project my-database
 
 In that Namespace, deploy a PostgreSQL 15 (`15-el9` tag from postegrsql ImageStream) with a 10Gi PVC on the source cluster using the OpenShift template (https://github.com/sclorg/postgresql-container/).
 
-Inside a Terminal in the PostgreSQL Pod or via `oc rsh`, generate some random data:
+Inside a Terminal in the PostgreSQL Pod or via `oc rsh`, use the `psql` CLI to connect to the DB and generate some random data:
 ```shell
 CREATE TEMP TABLE t AS SELECT generate_series(1, 6e7) x;
 ```
