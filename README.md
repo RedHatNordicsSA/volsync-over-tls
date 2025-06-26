@@ -4,10 +4,12 @@ Test and example of VolSync based replication of PVC using rsync over TLS.
 The purpose of this setup is to enable PersistentVolume replication between two OpenShift clusters with no extra infrastructure dependency such as MetalLB, Elastic LB or sub mariner.
 To do this, volume replication is done via rsync over TLS towards a passthrough Route on the destination cluster.
 
+[Read more about Rsync TLS features and CRD](https://volsync.readthedocs.io/en/latest/usage/rsync-tls/index.html)
+
 ## Prerequisite 
 - Two OpenShift clusters.
-- The source cluster can reach the Router IP of the destination cluster on port 443.
-- Install VolSync on both clusters via the OperatorHub. If you have ACM, there is also a ManagedClusterAddOn available.
+- The source cluster can reach the Ingress/Router IP of the destination cluster on port 443.
+- Install VolSync on both clusters via the OperatorHub. If you have a hub cluster with ACM, there is also a ManagedClusterAddOn available.
 
 ## (Optional) Test data.
 If you need a Deployment and PersistentVolumeClaim to validate this setup before moving on to actual workload.
@@ -100,6 +102,8 @@ spec:
 ```
 
 ## Monitor
-While the replication is running, monitor the network load on the Routers of your destination cluster. One way to do that is by going in the OpenShift Console under Observe and choosing the `Kubernetes / Networking / Namespace (Pods)` then selecting the `openshift-ingress` Namespace.
+While the replication is running, you monitor the network load on the Routers of your destination cluster. One way to do that is by going in the OpenShift Console under Observe and choosing the `Kubernetes / Networking / Namespace (Pods)` then selecting the `openshift-ingress` Namespace.
 
 The ReplicationSource and ReplicationDestination CRs `.status.latestMoverStatus` section will be updated after each sync.
+
+The rsync `speedup` value is a ratio between the size of the source volume and the actual data sent.
